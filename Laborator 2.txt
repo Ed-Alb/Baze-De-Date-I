@@ -1,0 +1,146 @@
+DDL - data definition language
+
+// la COD_MARCA se baga cheie primara
+
+create table MARCI
+(
+COD_MARCA NUMBER(3) PRIMARY KEY,
+DENUMIRE VARCHAR2(20),
+TIP CHAR(1),
+DATA_LANSARE DATE
+);
+
+
+create table COMPONENTE
+(
+COD_COMPONENTA NUMBER(8) PRIMARY KEY,
+DENUMIRE VARCHAR2(20),
+COD_MARCA NUMBER(3),
+PRET NUMBER(6,2),
+STOC NUMBER(5),
+CONSTRAINT FK_COMPONENTE_MARCI FOREIGN KEY(COD_MARCA)
+REFERENCES MARCI(COD_MARCA)
+);
+
+
+create table PRODUCTIE
+(
+COD_MASINA NUMBER(8) PRIMARY KEY,
+SERIE_SASIU VARCHAR2(20),
+COD_MARCA NUMBER(3),
+DATA_PRODUCTIE DATE,
+CONSTRAINT FK_PRODUCTIE_MARCI FOREIGN KEY(COD_MARCA)
+REFERENCES MARCI(COD_MARCA)
+);
+
+* comanda alter modifica o structura deja creata
+* drop sterge o tabela
+
+Adaugare: DML - data manipulation language HAHA
+
+INSERT INTO MARCI(COD_MARCA, DENUMIRE, TIP, DATA_LANSARE)
+VALUES(1, 'FOCUS', 'S', TO_DATE('08-03-1991', 'DD-MM-YYYY'));
+
+INSERT INTO MARCI
+VALUES(2, 'FIESTA', 'S', TO_DATE('08-03-1991', 'DD-MM-YYYY'));
+
+
+INSERT INTO PRODUCTIE(COD_MASINA, SERIE_SASIU, COD_MARCA, DATA_PRODUCTIE)
+VALUES(1, 'FOCUS', 2, TO_DATE('08-03-1991', 'DD-MM-YYYY'));
+
+-------------------------------
+Transcriere imagini ocw Lab2:
+
+-- Adaugare chei primare:
+
+ALTER TABLE depaetamente ADD CONSTRAINT pk_departamente PRIMARY KEY (ID_DEP);
+
+ALTER TABLE grila_salariu ADD CONSTRAINT pk_grila PRIMARY KEY (GRAD);
+
+ALTER TABLE angajati ADD CONSTRAINT pk_angajati PRIMARY KEY (ID_ANG);
+
+-- Adaugare Chei Secundare/Straine:
+
+ALTER TABLE angajati ADD CONSTRAINT fk_ang_dep FOREIGN KEY (ID_DEP)
+  REFERNCES departamente(ID_DEP);
+
+ALTER TABLE angajati ADD CONSTRAINT fk_ang_ang FOREIGN KEY (ID_SEF)
+  REFERENCES angajati(ID_ANG);
+
+-- UNIQUE:
+
+ALTER TABLE departamente ADD CONSTRAINT uq_denumire UNIQUE (DEN_DEP);
+ALTER TABLE angajati ADD CONSTRAINT uq_nume UNIQUE (NUME);
+
+------------------------------------
+
+INSERT INTO grila_salariu VALUES(1, 1, 1000);
+INSERT INTO grila_salariu VALUES(1, 1001, 2000);
+
+-- INSERT INTO departamente VALUES(...)
+-- INSERT INTO angajati(...) VALUES(...)
+------------------
+
+-- Vizualizarea Datelor:
+
+select * from angajati
+
+column nume format a20
+column prenume format a20
+column functie format a20
+column salariu format 9999.99
+select nume, prenume, functie, salariu from angajati;
+
+-- Să se afișeze numele, prenumele
+-- și salariu pentru angajații din departamentul 10:
+
+select nume, prenume, functie, salariu from angajati where ID_DEPT = 10;
+
+-- Să se afișeze numele, prenumele 
+-- și salariu pentru angajații care au funcția ‘Director’:
+
+select nume, prenume, salariu from angajati where functie='Director';
+
+-------------------------------
+-- Modificarea datelor:
+
+-- Să se modifice numele angajatului cu id-ul 1002 
+-- în ‘Popescu’. Verificați dacă s-a facut modificarea:
+
+select nume from angajati where id_ang = 1002;
+UPDATE angajati SET nume = 'Popescu' WHERE id_ang = 1002;
+select nume from angajati where id_ang = 1002;
+
+-- Să se acorde comision la toți angajații egal
+-- cu 10% din salariu. Verificați dacă s-a facut modificarea:
+
+SELECT nume, salariu, comision FROM angajati;
+UPDATE angajati SET comision = 0.1 * salariu;
+SELECT nume, salariu, comision FROM angajati;
+
+-- Stergerea datelor:
+
+-- Să se șteargă
+-- Angajatul cu numele ‘Pop’ și prenumele ‘Alina’
+-- Angajații care au venit în firmă înainte de ‘1-JAN-1985’
+-- Angajații care au comisionul null
+
+INSERT INTO angajati(id_ang, nume, prenume,
+ functie, id_sef, id_dept, data_ang)
+VALUES(4003, 'Pop', 'Alina', 'Analist', 1001, 20, '21-NOV-1995')
+
+INSERT INTO angajati(id_ang, nume, prenume,
+ functie, id_sef, id_dept, data_ang)
+VALUES(4004, 'Pop', Calin'', 'Tester', 1001, 20, '01-JAN-1980')
+
+INSERT INTO angajati(id_ang, nume, prenume,
+ functie, id_sef, id_dept, data_ang)
+VALUES(4005, 'Pop', 'Andrei', 'Manager', 1001, 20, '14-FEB-1995')
+
+SELECT nume, prenume, data_ang, comision FROM angajati;
+DELETE FROM angajati WHERE nume = 'Pop' AND prenume = 'Alina';
+SELECT nume, prenume, data_ang, comision FROM angajati;
+DELETE FROM angajati WHERE data_ang < '01-JAN-1985'
+SELECT nume, prenume, data_ang, comision FROM angajati;
+DELETE FROM angajati WHERE comision is NULL;
+SELECT nume, prenume, data_ang, comision FROM angajati;

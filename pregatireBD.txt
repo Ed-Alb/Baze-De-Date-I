@@ -1,0 +1,300 @@
+-- Crearea Tabelelor: (cu Primary Key, Foreign Key, constrangeri in general)
+
+CREATE TABLE departamente
+(
+	id_departament NUMBER(2) NOT NULL,
+	denumire_departament VARCHAR2(30),
+	telefon VARCHAR2(10)
+);
+
+
+CREATE TABLE grila_salariu
+(
+	grad NUMBER(2),
+	nivel_inferior NUMBER,
+	NIVEL_SUPERIOR NUMBER
+);
+
+CREATE TABLE angajati
+(
+	id_angajat NUMBER(4) NOT NULL,
+	nume VARCHAR(30),
+	prenume VARCHAR(30),
+	functie VARCHAR(20),
+	id_sef NUMBER(4),
+	data_angajarii DATE DEFAULT SYSDATE,
+	salariu NUMBER(7, 2) DEFAULT 2000,
+	comision NUMBER(7, 2),
+	id_departament NUMBER
+);
+
+ALTER TABLE departamente ADD CONSTRAINT pk_departamente PRIMARY KEY (id_departament);
+ALTER TABLE grila_salariu ADD CONSTRAINT pk_grila PRIMARY KEY (grad);
+ALTER TABLE angajati ADD CONSTRAINT pk_angajati PRIMARY KEY (id_angajat);
+ALTER TABLE angajati ADD CONSTRAINT fk_ang_ang FOREIGN KEY (id_departament)
+	REFERENCES departamente(id_departament);
+ALTER TABLE angajati ADD CONSTRAINT fk_ang_dep FOREIGN KEY (id_sef)
+	REFERENCES angajati(id_angajat);
+
+ALTER TABLE departamente ADD CONSTRAINT uq_denumire UNIQUE (denumire_departament);
+ALTER TABLE angajati ADD CONSTRAINT uq_nume UNIQUE (nume, prenume);
+
+DROP TABLE angajati;
+DROP TABLE departamente;
+DROP TABLE grila_salariu;
+
+-- va rezulta:
+CREATE TABLE departamente
+(
+	id_departament NUMBER(2) NOT NULL,
+	denumire_departament VARCHAR2(30),
+	telefon VARCHAR2(10),
+	CONSTRAINT pk_departamente PRIMARY KEY (id_departament),
+	CONSTRAINT uq_denumire UNIQUE (denumire_departament)
+);
+
+CREATE TABLE grila_salariu
+(
+	grad NUMBER(2),
+	nivel_inferior NUMBER,
+	NIVEL_SUPERIOR NUMBER,
+	CONSTRAINT pk_grila PRIMARY_KEY (grad)
+);
+
+CREATE TABLE angajati
+(
+	id_angajat NUMBER(4) NOT NULL,
+	nume VARCHAR(30),
+	prenume VARCHAR(30),
+	functie VARCHAR(20),
+	id_sef NUMBER(4),
+	data_angajarii DATE DEFAULT SYSDATE,
+	salariu NUMBER(7, 2) DEFAULT 2000,
+	comision NUMBER(7, 2),
+	id_departament NUMBER,
+	CONSTRAINT pk_angajati PRIMARY KEY (id_angajat),
+	CONSTRAINT fk_ang_ang FOREIGN KEY (id_departament)
+	  REFERENCES departamente(id_departament),
+	CONSTRAINT fk_ang_dep FOREIGN KEY (id_sef)
+	  REFERENCES angajati(id_angajat),
+	CONSTRAINT uq_nume UNIQUE (nume, prenume)
+);
+
+
+-- INSERAREA IN TABELA:
+-- INSERT INTO nume_tabel(column_name1 [, column_name2 [, ...]]) VALUES(value1 [, value2, [....]])
+
+INSERT INTO grila_salariu VALUES (1, 1, 1000);
+INSERT INTO grila_salariu VALUES (1, 1001, 2000);
+
+INSERT INTO departamente VALUES (10, 'Proiectare Software', '0731186666');
+INSERT INTO departamente VALUES (20, 'Asigurarea Calitatii', '0731186667');
+INSERT INTO departamente VALUES (30, 'Resurse Umane', '0731186668');
+INSERT INTO departamente VALUES (40, 'Proiectare Software', '0731186669');
+
+INSERT INTO ANGAJATI(id_angajat, nume, prenume, functie)
+    VALUES (1001, 'Ionescu', 'Ion', 'Director');
+
+INSERT INTO ANGAJATI(id_angajat, nume, prenume, functie, id_sef, salariu, id_departament)
+    VALUES (1002, 'Ionescu', 'Ionel', 'Programator', 1001, 1024, 10);
+
+
+-- Vizualizarea datelor:
+-- SELECT [* | {column_name1[, column_name2[,...]]}]
+--   FROM  TABLE_NAME
+--   [WHERE conditions]
+
+SELECT * FROM angajati;
+SELECT nume, prenume, functie, salariu
+FROM angajati
+WHERE id_departament = 10;
+
+SELECT nume, prenume, functie, salariu
+FROM angajati
+WHERE functie = 'Director';
+
+-- Modificarea Datelor:
+
+-- UPDATE TABLE_NAME 
+-- SET column_name1 = new_value1 [, column_name2 = new_value2, [,...]] 
+-- [WHERE conditions]
+
+UPDATE angajati SET nume = 'NumeNou' WHERE id_angajat = 1002;
+
+UPDATE angajati SET comision = 0.1 * salariu;
+
+-- Stergerea Datelor:
+-- DELETE FROM tablename [WHERE conditions];
+
+DELETE FROM angajati WHERE nume = 'Pop' AND prenume = 'Alina';
+DELETE FROM angajati WHERE data_angajarii < '01-JAN-1985';
+DELETE FROM angajati WHERE comision is NULL;
+
+
+----
+-- Exercitii Lab 1:
+
+-- Ex 1:
+CREATE TABLE users
+(
+	id_user NUMBER(5),
+	username VARCHAR2(20),
+	password VARCHAR2(20),
+	CONSTRAINT pk_user PRIMARY KEY (id_user)
+);
+
+CREATE TABLE articles
+(
+	id_article NUMBER(4),
+	iduser NUMBER(5),
+	title VARCHAR2(20),
+	content VARCHAR2(100),
+	CONSTRAINT pk_article PRIMARY KEY (id_article),
+	CONSTRAINT fk_art_usr FOREIGN KEY (id_user)
+	    REFERENCES users(id_user)
+);
+
+CREATE TABLE comments
+(
+	id NUMBER(4),
+	article_comment VARCHAR2(100),
+	id_article NUMBER(4),
+	id_user NUMBER(5),
+	CONSTRAINT fk_comm_art FOREIGN KEY (id_article)
+	    REFERENCES articles(id_article),
+	CONSTRAINT fk_comm_usr FOREIGN KEY (id_user)
+	    REFERENCES users(id_user)
+);
+
+CREATE TABLE tags
+(
+	id_tag NUMBER(3),
+	tagname VARCHAR2(20),
+	CONSTRAINT pk_tags PRIMARY KEY (id_tag)
+);
+
+CREATE TABLE tags_articles
+(
+	id_article NUMBER(4),
+	id_tag NUMBER(3),
+	CONSTRAINT fk_tags_articles FOREIGN KEY (id_article)
+	    REFERENCES articles(id_article),
+	CONSTRAINT fk_tags_tags FOREIGN_KEY (id_tag)
+	    REFERENCES tags(id_tag)
+);
+
+-- Ex 2: Să se implementeze o bază de date pentru un rețete culinare folosind următoarea diagramă.
+CREATE TABLE recipes
+(
+	id_recipe NUMBER(3),
+	title VARCHAR2(20),
+	instructions VARCHAR2(200),
+	CONSTRAINT pk_recipes PRIMARY KEY (id_recipe)
+);
+
+CREATE TABLE categories
+(
+	id_category NUMBER(3),
+	category VARCHAR2(10),
+	CONSTRAINT pk_category PRIMARY KEY (id_category)
+);
+
+CREATE TABLE ingredients
+(
+	id_ingredient NUMBER(5),
+	id_category NUMBER(3),
+	ingredient VARCHAR2(20),
+	CONSTRAINT pk_ingredients PRIMARY KEY (id_ingredient),
+	CONSTRAINT fk_ing_cat FOREIGN KEY (id_category)
+	    REFERENCES categories (id_category)
+);
+
+CREATE TABLE link
+(
+	id_recipe NUMBER(3),
+	id_ingredient NUMBER(5),
+	quantity NUMBER(4),
+	mu VARCHAR2(50),
+	CONSTRAINT fk_link_rec FOREIGN KEY (id_recipe)
+	    REFERENCES recipes(id_recipe),
+	CONSTRAINT fk_link_ing FOREIGN KEY (id_ingredient)
+	    REFERENCES ingredients(id_ingredient)
+);
+
+
+-- Ex 3: Să se implementeze o bază de date pentru o flota de masini folosind următoarea diagramă.
+
+CREATE TABLE producers
+(
+	id_producer NUMBER(3),
+	name VARCHAR2(20),
+	CONSTRAINT pk_producers PRIMARY KEY (id_producer)
+);
+
+CREATE TABLE car_types
+(
+	id_type NUMBER(4),
+	type VARCHAR2(20),
+	CONSTRAINT pk_types PRIMARY KEY (id_type)
+);
+
+CREATE TABLE cars
+(
+	id_car NUMBER(5),
+	id_producer NUMBER(3),
+	id_type NUMBER(4),
+	registration_no VARCHAR2(10),
+	year NUMBER(4),
+	CONSTRAINT pk_car PRIMARY KEY (id_car),
+	CONSTRAINT fk_car_prod FOREIGN KEY (id_producer)
+	    REFERENCES producers(id_producer),
+	CONSTRAINT fk_car_type FOREIGN KEY (id_type)
+	    REFERENCES car_types(id_type),
+	CHECK (year BETWEEN 1980 AND 2021)
+);
+
+CREATE TABLE drivers
+(
+	id_driver NUMBER(5),
+	name VARCHAR2(10),
+	age NUMBER(3),
+	CONSTRAINT pk_driver PRIMARY KEY (id_driver),
+	CHECK (age BETWEEN 18 AND 61)
+);
+
+CREATE TABLE licenses
+(
+	id_license NUMBER(3),
+	type VARCHAR2(10),
+	CONSTRAINT pk_licences PRIMARY KEY (id_license)
+);
+
+CREATE TABLE licenses_drivers
+(
+	id_driver NUMBER(5),
+	id_license NUMBER(3),
+	year NUMBER(1),
+	CONSTRAINT fk_licd_driv FOREIGN KEY (id_driver)
+	    REFERENCES drivers (id_driver),
+	CONSTRAINT fk_licd_lics FOREIGN KEY (id_license)
+	    REFERENCES licenses (id_license)
+);
+
+CREATE TABLE cars_drivers
+(
+	id_driver NUMBER(5),
+	id_car NUMBER(5),
+	data DATE DEFAULT SYSDATE,
+	CONSTRAINT fk_card_driv FOREIGN KEY (id_driver)
+	    REFERENCES drivers (id_driver),
+	CONSTRAINT fk_card_cars FOREIGN KEY (id_car)
+	    REFERENCES cars (id_car)
+);
+
+
+
+
+------------------------------------------------------
+
+
+-- Laborator 2:
