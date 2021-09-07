@@ -1,0 +1,165 @@
+SQL> set lines 200
+SQL> set pages 100
+SQL> insert into login_lab_bd values( 'Grunberg Edar', '335CC', 'Lab3', user, sysdate, null, null);
+
+1 row created.
+
+SQL> @d:\spools\Laborator3.sql
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ MATRICOL                                                                                                          NOT NULL NUMBER(6)
+ NUME                                                                                                                       VARCHAR2(10)
+ PRENUME                                                                                                                    VARCHAR2(10)
+ ID_COMPANIE                                                                                                                NUMBER(2)
+ ID_FILIALA                                                                                                                 NUMBER(1)
+ SALARIU                                                                                                                    NUMBER(7,2)
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+INSERT INTO SALARIATI (MATRICOL, NUME, PRENUME, ID_COMPANIE, ID_FILIALA, SALARIU)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SYS_C007557) violated 
+
+
+INSERT INTO SALARIATI (MATRICOL, NUME, PRENUME, ID_COMPANIE, ID_FILIALA, SALARIU)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SYS_C007557) violated 
+
+
+Enter value for sal: 1
+old   3: WHERE SALARIU > &&SAL
+new   3: WHERE SALARIU > 1
+
+NUME       PRENUME       SALARIU                                                                                                                                                                        
+---------- ---------- ----------                                                                                                                                                                        
+Ranja      Ionut            2500                                                                                                                                                                        
+
+Enter value for sediu: caca
+old   1: SELECT * FROM COMPANII WHERE LOCALITATE_SEDIU ='&SEDIU'
+new   1: SELECT * FROM COMPANII WHERE LOCALITATE_SEDIU ='caca'
+
+no rows selected
+
+old   3: WHERE SALARIU < &SAL
+new   3: WHERE SALARIU < 1
+
+no rows selected
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+SQL> @d:\spools\Laborator3.sql
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ MATRICOL                                                                                                          NOT NULL NUMBER(6)
+ NUME                                                                                                                       VARCHAR2(10)
+ PRENUME                                                                                                                    VARCHAR2(10)
+ ID_COMPANIE                                                                                                                NUMBER(2)
+ ID_FILIALA                                                                                                                 NUMBER(1)
+ SALARIU                                                                                                                    NUMBER(7,2)
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+
+1 row created.
+
+Enter value for sal: 1100
+old   3: WHERE SALARIU > &&SAL
+new   3: WHERE SALARIU > 1100
+
+NUME       PRENUME       SALARIU                                                                                                                                                                        
+---------- ---------- ----------                                                                                                                                                                        
+Ranja      Ionut            2500                                                                                                                                                                        
+Mocanu     Andrei           1650                                                                                                                                                                        
+
+Enter value for sediu: sediu
+old   1: SELECT * FROM COMPANII WHERE LOCALITATE_SEDIU ='&SEDIU'
+new   1: SELECT * FROM COMPANII WHERE LOCALITATE_SEDIU ='sediu'
+
+no rows selected
+
+old   3: WHERE SALARIU < &SAL
+new   3: WHERE SALARIU < 1100
+
+no rows selected
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+SQL> update login_lab_bd set data_sf= sysdate where laborator='Lab3';
+
+2 rows updated.
+
+SQL> update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab3';
+
+2 rows updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select instance_number,instance_name, to_char(startup_time, 'dd-mm-yyyy hh:mi:ss'), host_name
+  2  from v$instance;
+
+INSTANCE_NUMBER INSTANCE_NAME    TO_CHAR(STARTUP_TIM HOST_NAME                                                                                                                                          
+--------------- ---------------- ------------------- ----------------------------------------------------------------                                                                                   
+              1 db19c            16-03-2021 07:09:33 DESKTOP-6QHO4BO                                                                                                                                    
+
+SQL> select nume_stud, grupa, laborator, to_char(data_in, 'dd-mm-yyyy hh:mi:ss') data_inceput,
+  2  to_char(data_sf, 'dd-mm-yyyy hh:mi:ss') data_sfarsit, durata minute_lucrate from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  DATA_INCEPUT        DATA_SFARSIT        MINUTE_LUCRATE                                                                                             
+------------------------------ ---------- ---------- ------------------- ------------------- --------------                                                                                             
+Grunberg Edar                  335CC      Lab3       16-03-2021 10:06:42 16-03-2021 11:39:55             93                                                                                             
+Grunberg Edar                  335CC      Lab3       16-03-2021 11:37:21 16-03-2021 11:39:55              3                                                                                             
+
+SQL> spool off;

@@ -1,0 +1,73 @@
+--comentariu
+-- @d:\spools\Laborator3.sql -- incarcam din acest fisier
+CREATE TABLE COMPANII 
+(
+ID_COMPANIE NUMBER(2) PRIMARY KEY,
+DENUMIRE VARCHAR2(10),
+LOCALITATE_SEDIU VARCHAR2(10),
+NUME_CEO VARCHAR2(20)
+);
+
+
+CREATE TABLE FILIALE
+(
+ID_COMPANIE NUMBER(2),
+ID_FILIALA NUMBER(1),
+DENUMIRE VARCHAR2(10),
+LOCALITATE VARCHAR2(10),
+NR_ANGAJATI NUMBER(4),
+CONSTRAINT PK_FILIALE PRIMARY KEY (ID_COMPANIE, ID_FILIALA),
+-- se pune practic o singura cheie primara, dar pe 2 coloane
+CONSTRAINT FK_FILIALE_COMPANY FOREIGN KEY (ID_COMPANIE)
+REFERENCES COMPANII(ID_COMPANIE)
+);
+
+
+CREATE TABLE SALARIATI
+(
+MATRICOL NUMBER(6) PRIMARY KEY,
+NUME VARCHAR2(10),
+PRENUME VARCHAR2(10),
+ID_COMPANIE NUMBER(2),
+ID_FILIALA NUMBER(1),
+SALARIU NUMBER(7,2),
+CONSTRAINT FK_SALARIATI_FILIALE FOREIGN KEY (ID_COMPANIE, ID_FILIALA)
+REFERENCES FILIALE(ID_COMPANIE, ID_FILIALA)
+);
+
+desc salariati
+-- comanda sql+ deci nu ar trebui ; neaparat
+
+INSERT INTO COMPANII (ID_COMPANIE, DENUMIRE, LOCALITATE_SEDIU, NUME_CEO)
+VALUES (1, 'Comp 1', 'Baicoi', 'Ranja');
+
+INSERT INTO FILIALE (ID_COMPANIE, ID_FILIALA, DENUMIRE, LOCALITATE, NR_ANGAJATI)
+VALUES (1, 1, 'Fil 1', 'Motru', 10);
+
+INSERT INTO SALARIATI (MATRICOL, NUME, PRENUME, ID_COMPANIE, ID_FILIALA, SALARIU)
+VALUES (1, 'Ranja', 'Ionut', 1, 1, 2500);
+INSERT INTO SALARIATI (MATRICOL, NUME, PRENUME, ID_COMPANIE, ID_FILIALA, SALARIU)
+VALUES (2, 'Stoian', 'Andrei', 1, 1, 1100);
+INSERT INTO SALARIATI (MATRICOL, NUME, PRENUME, ID_COMPANIE, ID_FILIALA, SALARIU)
+VALUES (3, 'Mocanu', 'Andrei', 1, 1, 1650);
+undefine SAL
+-- afisare toti salariatii cu salariu > 1000 - proiectie si selectie
+SELECT NUME,PRENUME,SALARIU
+FROM salariati
+WHERE SALARIU > &&SAL;
+
+SELECT * FROM COMPANII WHERE LOCALITATE_SEDIU ='&SEDIU';
+
+SELECT *
+FROM salariati
+WHERE SALARIU < &1;
+
+-- variabila substituita &:
+-- &SAL -- asteapta de la mine valoarea
+-- cu && deja stim ce e SAL, nu mai trebuie introdus
+
+drop table salariati;
+drop table filiale;
+drop table companii;
+-- pt ca am chei straine, nu pot da drop mai intai la companii si
+-- abia dupa la restul

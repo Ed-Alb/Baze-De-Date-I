@@ -1,0 +1,596 @@
+SQL> set lines 200
+SQL> set pages 100
+SQL> select to_char(sysdate, 'dd-mm-yyyy hh:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'DD                                                                                                                                                                                     
+-------------------                                                                                                                                                                                     
+23-03-2021 11:10:09                                                                                                                                                                                     
+
+SQL> insert into login_lab_bd values( Grunberg Edar-Albert, '335CC', 'Lab4', user, sysdate, null, null);
+insert into login_lab_bd values( Grunberg Edar-Albert, '335CC', 'Lab4', user, sysdate, null, null)
+                                          *
+ERROR at line 1:
+ORA-00917: missing comma 
+
+
+SQL> insert into login_lab_bd values( 'Grunberg Edar-Albert', '335CC', 'Lab4', user, sysdate, null, null);
+
+1 row created.
+
+SQL> select * from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grunberg Edar                  335CC      Lab3       SCOTT      16-MAR-21 16-MAR-21         93                                                                                                          
+Grunberg Edar                  335CC      Lab3       SCOTT      16-MAR-21 16-MAR-21          3                                                                                                          
+Grunberg Edar-Albert           335CC      Lab4       SCOTT      23-MAR-21                                                                                                                               
+Grunberg Edar-Albert           335CC      Lab4       SCOTT      23-MAR-21                                                                                                                               
+
+SQL> @D:\spools\lab4-comenzi.sql
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ DEPTNO                                                                                                            NOT NULL NUMBER(2)
+ DNAME                                                                                                                      VARCHAR2(14)
+ LOC                                                                                                                        VARCHAR2(13)
+
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMPNO                                                                                                             NOT NULL NUMBER(4)
+ ENAME                                                                                                                      VARCHAR2(10)
+ JOB                                                                                                                        VARCHAR2(9)
+ MGR                                                                                                                        NUMBER(4)
+ HIREDATE                                                                                                                   DATE
+ SAL                                                                                                                        NUMBER(7,2)
+ COMM                                                                                                                       NUMBER(7,2)
+ DEPTNO                                                                                                                     NUMBER(2)
+
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ GRADE                                                                                                                      NUMBER
+ LOSAL                                                                                                                      NUMBER
+ HISAL                                                                                                                      NUMBER
+
+
+     EMPNO ENAME             SAL     DEPTNO                                                                                                                                                             
+---------- ---------- ---------- ----------                                                                                                                                                             
+      7839 KING             5000         10                                                                                                                                                             
+      7902 FORD             3000         20                                                                                                                                                             
+      7788 SCOTT            3000         20                                                                                                                                                             
+      7566 JONES            2975         20                                                                                                                                                             
+      7698 BLAKE            2850         30                                                                                                                                                             
+      7782 CLARK            2450         10                                                                                                                                                             
+      7499 ALLEN            1600         30                                                                                                                                                             
+      7844 TURNER           1500         30                                                                                                                                                             
+
+8 rows selected.
+
+
+    DEPTNO DNAME          LOC                                                                                                                                                                           
+---------- -------------- -------------                                                                                                                                                                 
+        20 RESEARCH       DALLAS                                                                                                                                                                        
+        30 SALES          CHICAGO                                                                                                                                                                       
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+
+Enter value for salariu: 2500
+old   4: WHERE SAL > &&SALARIU
+new   4: WHERE SAL > 2500
+
+Table created.
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+
+
+Table dropped.
+
+
+Table created.
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+
+
+Table dropped.
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+11 rows selected.
+
+
+no rows selected
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+11 rows selected.
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+
+HIREDATE BETWEEN TO_CHAR('1981-04-02','YYYY-MM-DD') AND TO_CHAR('1981-12-02','YYYY-MM-DD')
+                                                                *
+ERROR at line 3:
+ORA-01722: invalid number 
+
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+11 rows selected.
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+11 rows selected.
+
+
+         1                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+
+14 rows selected.
+
+
+'ANGAJATULCUID'||EMPNO||'SENUMESTE'||ENAME                                            SAL     DEPTNO 'AZESTEDATADE'||SYSDATE                                                                            
+------------------------------------------------------------------------------ ---------- ---------- -----------------------------------                                                                
+ANGAJATUL CU ID 7499 SE NUMESTE ALLEN                                                1600         30  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7521 SE NUMESTE WARD                                                 1250         30  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7566 SE NUMESTE JONES                                                2975         20  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7654 SE NUMESTE MARTIN                                               1250         30  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7698 SE NUMESTE BLAKE                                                2850         30  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7782 SE NUMESTE CLARK                                                2450         10  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7788 SE NUMESTE SCOTT                                                3000         20  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7839 SE NUMESTE KING                                                 5000         10  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7844 SE NUMESTE TURNER                                               1500         30  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7876 SE NUMESTE ADAMS                                                1100         20  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7902 SE NUMESTE FORD                                                 3000         20  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7934 SE NUMESTE MILLER                                               1300         10  AZ ESTE DATA DE 23-MAR-21                                                                         
+
+12 rows selected.
+
+
+     EMPNO        SAL ENAME                                                                                                                                                                             
+---------- ---------- ----------                                                                                                                                                                        
+      7521       1250 WARD                                                                                                                                                                              
+      7844       1500 TURNER                                                                                                                                                                            
+      7499       1600 ALLEN                                                                                                                                                                             
+      7900        950 JAMES                                                                                                                                                                             
+      7698       2850 BLAKE                                                                                                                                                                             
+      7654       1250 MARTIN                                                                                                                                                                            
+
+6 rows selected.
+
+SQL> select ENAME, 'cu functie', JOB FROM EMP;
+
+ENAME      'CUFUNCTIE JOB                                                                                                                                                                               
+---------- ---------- ---------                                                                                                                                                                         
+SMITH      cu functie CLERK                                                                                                                                                                             
+ALLEN      cu functie SALESMAN                                                                                                                                                                          
+WARD       cu functie SALESMAN                                                                                                                                                                          
+JONES      cu functie MANAGER                                                                                                                                                                           
+MARTIN     cu functie SALESMAN                                                                                                                                                                          
+BLAKE      cu functie MANAGER                                                                                                                                                                           
+CLARK      cu functie MANAGER                                                                                                                                                                           
+SCOTT      cu functie ANALYST                                                                                                                                                                           
+KING       cu functie PRESIDENT                                                                                                                                                                         
+TURNER     cu functie SALESMAN                                                                                                                                                                          
+ADAMS      cu functie CLERK                                                                                                                                                                             
+JAMES      cu functie CLERK                                                                                                                                                                             
+FORD       cu functie ANALYST                                                                                                                                                                           
+MILLER     cu functie CLERK                                                                                                                                                                             
+
+14 rows selected.
+
+SQL> desc angajati
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ ID_ANG                                                                                                            NOT NULL NUMBER(4)
+ NUME                                                                                                                       VARCHAR2(30)
+ FUNCTIE                                                                                                                    VARCHAR2(20)
+ ID_SEF                                                                                                                     NUMBER(4)
+ DATA_ANG                                                                                                                   DATE
+ SALARIU                                                                                                                    NUMBER(7,2)
+ COMISION                                                                                                                   NUMBER(7,2)
+ ID_DEP                                                                                                                     NUMBER(2)
+
+SQL> select id_ang AS pin, nume FROM angajati where pin IN (7499, 7902, 7876);
+select id_ang AS pin, nume FROM angajati where pin IN (7499, 7902, 7876)
+                                               *
+ERROR at line 1:
+ORA-00904: "PIN": invalid identifier 
+
+
+SQL> select id_ang AS pin, nume FROM angajati where id-ang IN (7499, 7902, 7876);
+select id_ang AS pin, nume FROM angajati where id-ang IN (7499, 7902, 7876)
+                                                  *
+ERROR at line 1:
+ORA-00904: "ANG": invalid identifier 
+
+
+SQL> select id_ang AS pin, nume FROM angajati where id_ang IN (7499, 7902, 7876);
+
+       PIN NUME                                                                                                                                                                                         
+---------- ------------------------------                                                                                                                                                               
+      7499 ALLEN                                                                                                                                                                                        
+      7876 ADAMS                                                                                                                                                                                        
+      7902 FORD                                                                                                                                                                                         
+
+SQL> @D:\spools\lab4-comenzi.sql
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ DEPTNO                                                                                                            NOT NULL NUMBER(2)
+ DNAME                                                                                                                      VARCHAR2(14)
+ LOC                                                                                                                        VARCHAR2(13)
+
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ EMPNO                                                                                                             NOT NULL NUMBER(4)
+ ENAME                                                                                                                      VARCHAR2(10)
+ JOB                                                                                                                        VARCHAR2(9)
+ MGR                                                                                                                        NUMBER(4)
+ HIREDATE                                                                                                                   DATE
+ SAL                                                                                                                        NUMBER(7,2)
+ COMM                                                                                                                       NUMBER(7,2)
+ DEPTNO                                                                                                                     NUMBER(2)
+
+ Name                                                                                                              Null?    Type
+ ----------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------
+ GRADE                                                                                                                      NUMBER
+ LOSAL                                                                                                                      NUMBER
+ HISAL                                                                                                                      NUMBER
+
+
+     EMPNO ENAME             SAL     DEPTNO                                                                                                                                                             
+---------- ---------- ---------- ----------                                                                                                                                                             
+      7839 KING             5000         10                                                                                                                                                             
+      7902 FORD             3000         20                                                                                                                                                             
+      7788 SCOTT            3000         20                                                                                                                                                             
+      7566 JONES            2975         20                                                                                                                                                             
+      7698 BLAKE            2850         30                                                                                                                                                             
+      7782 CLARK            2450         10                                                                                                                                                             
+      7499 ALLEN            1600         30                                                                                                                                                             
+      7844 TURNER           1500         30                                                                                                                                                             
+
+8 rows selected.
+
+
+    DEPTNO DNAME          LOC                                                                                                                                                                           
+---------- -------------- -------------                                                                                                                                                                 
+        20 RESEARCH       DALLAS                                                                                                                                                                        
+        30 SALES          CHICAGO                                                                                                                                                                       
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+
+old   4: WHERE SAL > &&SALARIU
+new   4: WHERE SAL > 2500
+
+Table created.
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+
+
+Table dropped.
+
+
+Table created.
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+
+
+Table dropped.
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+11 rows selected.
+
+
+no rows selected
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+11 rows selected.
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+
+HIREDATE BETWEEN TO_CHAR('1981-04-02','YYYY-MM-DD') AND TO_CHAR('1981-12-02','YYYY-MM-DD')
+                                                                *
+ERROR at line 3:
+ORA-01722: invalid number 
+
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30                                                                                                                   
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30                                                                                                                   
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30                                                                                                                   
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+11 rows selected.
+
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO                                                                                                                   
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------                                                                                                                   
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20                                                                                                                   
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20                                                                                                                   
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30                                                                                                                   
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10                                                                                                                   
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20                                                                                                                   
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10                                                                                                                   
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30                                                                                                                   
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20                                                                                                                   
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30                                                                                                                   
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20                                                                                                                   
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10                                                                                                                   
+
+11 rows selected.
+
+
+         1                                                                                                                                                                                              
+----------                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+         1                                                                                                                                                                                              
+
+14 rows selected.
+
+
+'ANGAJATULCUID'||EMPNO||'SENUMESTE'||ENAME                                            SAL     DEPTNO 'AZESTEDATADE'||SYSDATE                                                                            
+------------------------------------------------------------------------------ ---------- ---------- -----------------------------------                                                                
+ANGAJATUL CU ID 7499 SE NUMESTE ALLEN                                                1600         30  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7521 SE NUMESTE WARD                                                 1250         30  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7566 SE NUMESTE JONES                                                2975         20  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7654 SE NUMESTE MARTIN                                               1250         30  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7698 SE NUMESTE BLAKE                                                2850         30  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7782 SE NUMESTE CLARK                                                2450         10  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7788 SE NUMESTE SCOTT                                                3000         20  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7839 SE NUMESTE KING                                                 5000         10  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7844 SE NUMESTE TURNER                                               1500         30  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7876 SE NUMESTE ADAMS                                                1100         20  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7902 SE NUMESTE FORD                                                 3000         20  AZ ESTE DATA DE 23-MAR-21                                                                         
+ANGAJATUL CU ID 7934 SE NUMESTE MILLER                                               1300         10  AZ ESTE DATA DE 23-MAR-21                                                                         
+
+12 rows selected.
+
+
+     EMPNO        SAL ENAME                                                                                                                                                                             
+---------- ---------- ----------                                                                                                                                                                        
+      7521       1250 WARD                                                                                                                                                                              
+      7844       1500 TURNER                                                                                                                                                                            
+      7499       1600 ALLEN                                                                                                                                                                             
+      7900        950 JAMES                                                                                                                                                                             
+      7698       2850 BLAKE                                                                                                                                                                             
+      7654       1250 MARTIN                                                                                                                                                                            
+
+6 rows selected.
+
+SQL> update login_lab_bd set data_sf= sysdate where laborator='Lab4';
+
+2 rows updated.
+
+SQL> update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab2';
+
+0 rows updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select instance_number,instance_name, to_char(startup_time, 'dd-mm-yyyy hh:mi:ss'), host_name
+  2  from v$instance;
+
+INSTANCE_NUMBER INSTANCE_NAME    TO_CHAR(STARTUP_TIM HOST_NAME                                                                                                                                          
+--------------- ---------------- ------------------- ----------------------------------------------------------------                                                                                   
+              1 db19c            23-03-2021 07:51:47 DESKTOP-6QHO4BO                                                                                                                                    
+
+SQL> select nume_stud, grupa, laborator, to_char(data_in, 'dd-mm-yyyy hh:mi:ss') data_inceput,
+  2  to_char(data_sf, 'dd-mm-yyyy hh:mi:ss') data_sfarsit, durata minute_lucrate from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  DATA_INCEPUT        DATA_SFARSIT        MINUTE_LUCRATE                                                                                             
+------------------------------ ---------- ---------- ------------------- ------------------- --------------                                                                                             
+Grunberg Edar                  335CC      Lab3       16-03-2021 10:06:42 16-03-2021 11:39:55             93                                                                                             
+Grunberg Edar                  335CC      Lab3       16-03-2021 11:37:21 16-03-2021 11:39:55              3                                                                                             
+Grunberg Edar-Albert           335CC      Lab4       23-03-2021 09:56:44 23-03-2021 11:19:56                                                                                                            
+Grunberg Edar-Albert           335CC      Lab4       23-03-2021 11:10:56 23-03-2021 11:19:56                                                                                                            
+
+SQL> update login_lab_bd set durata= round((data_sf-data_in)*24*60) where laborator='Lab4';
+
+2 rows updated.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select instance_number,instance_name, to_char(startup_time, 'dd-mm-yyyy hh:mi:ss'), host_name
+  2  from v$instance;
+
+INSTANCE_NUMBER INSTANCE_NAME    TO_CHAR(STARTUP_TIM HOST_NAME                                                                                                                                          
+--------------- ---------------- ------------------- ----------------------------------------------------------------                                                                                   
+              1 db19c            23-03-2021 07:51:47 DESKTOP-6QHO4BO                                                                                                                                    
+
+SQL> select nume_stud, grupa, laborator, to_char(data_in, 'dd-mm-yyyy hh:mi:ss') data_inceput,
+  2  to_char(data_sf, 'dd-mm-yyyy hh:mi:ss') data_sfarsit, durata minute_lucrate from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  DATA_INCEPUT        DATA_SFARSIT        MINUTE_LUCRATE                                                                                             
+------------------------------ ---------- ---------- ------------------- ------------------- --------------                                                                                             
+Grunberg Edar                  335CC      Lab3       16-03-2021 10:06:42 16-03-2021 11:39:55             93                                                                                             
+Grunberg Edar                  335CC      Lab3       16-03-2021 11:37:21 16-03-2021 11:39:55              3                                                                                             
+Grunberg Edar-Albert           335CC      Lab4       23-03-2021 09:56:44 23-03-2021 11:19:56             83                                                                                             
+Grunberg Edar-Albert           335CC      Lab4       23-03-2021 11:10:56 23-03-2021 11:19:56              9                                                                                             
+
+SQL> DELETE FROM login_lab_bd WHERE MINUTE_LUCRATE = 9;
+DELETE FROM login_lab_bd WHERE MINUTE_LUCRATE = 9
+                               *
+ERROR at line 1:
+ORA-00904: "MINUTE_LUCRATE": invalid identifier 
+
+
+SQL> DELETE FROM login_lab_bd WHERE durata = 9;
+
+1 row deleted.
+
+SQL> select * from login_lab_bd;
+
+NUME_STUD                      GRUPA      LABORATOR  NUME_USER  DATA_IN   DATA_SF       DURATA                                                                                                          
+------------------------------ ---------- ---------- ---------- --------- --------- ----------                                                                                                          
+Grunberg Edar                  335CC      Lab3       SCOTT      16-MAR-21 16-MAR-21         93                                                                                                          
+Grunberg Edar                  335CC      Lab3       SCOTT      16-MAR-21 16-MAR-21          3                                                                                                          
+Grunberg Edar-Albert           335CC      Lab4       SCOTT      23-MAR-21 23-MAR-21         83                                                                                                          
+
+SQL> spool off;

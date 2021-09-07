@@ -1,0 +1,165 @@
+SQL> create table MARCI
+  2  (
+  3  COD_MARCA NUMBER(3) PRIMARY KEY,
+  4  DENUMIRE VARCHAR2(20),
+  5  TIP CHAR(1),
+  6  DATA_LANSARE DATE
+  7  );
+create table MARCI
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> 
+SQL> 
+SQL> create table COMPONENTE
+  2  (
+  3  COD_COMPONENTA NUMBER(8) PRIMARY KEY,
+  4  DENUMIRE VARCHAR2(20),
+  5  COD_MARCA NUMBER(3),
+  6  PRET NUMBER(6,2),
+  7  STOC NUMBER(5),
+  8  CONSTRAINT FK_COMPONENTE_MARCI FOREIGN KEY(COD_MARCA)
+  9  REFERENCES MARCI(COD_MARCA)
+ 10  );
+create table COMPONENTE
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> 
+SQL> 
+SQL> create table PRODUCTIE
+  2  (
+  3  COD_MASINA NUMBER(8) PRIMARY KEY,
+  4  SERIE_SASIU VARCHAR2(20),
+  5  COD_MARCA NUMBER(3),
+  6  DATA_PRODUCTIE DATE,
+  7  CONSTRAINT FK_PRODUCTIE_MARCI FOREIGN KEY(COD_MARCA)
+  8  REFERENCES MARCI(COD_MARCA)
+  9  );
+create table PRODUCTIE
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> desc marci
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COD_MARCA                                 NOT NULL NUMBER(3)
+ DENUMIRE                                           VARCHAR2(20)
+ TIP                                                CHAR(1)
+ DATA_LANSARE                                       DATE
+
+SQL> desc componente
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COD_COMPONENTA                            NOT NULL NUMBER(8)
+ DENUMIRE                                           VARCHAR2(20)
+ COD_MARCA                                          NUMBER(3)
+ PRET                                               NUMBER(6,2)
+ STOC                                               NUMBER(5)
+
+SQL> desc productie
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COD_MASINA                                NOT NULL NUMBER(8)
+ SERIE_SASIU                                        VARCHAR2(20)
+ COD_MARCA                                          NUMBER(3)
+ DATA_PRODUCTIE                                     DATE
+
+SQL> select * from marci
+  2  ;
+
+no rows selected
+
+SQL> select * from MARCI;
+
+no rows selected
+
+SQL> INSERT INTO MARCI(COD_MARCA, DENUMIRE, TIP, DATA_LANSARE)
+  2  VALUES(1, 'FOCUS', 'S', TO_DATE('08-03-1991', 'DD-MM-YYYY'));
+
+1 row created.
+
+SQL> select * from MARCI;
+
+ COD_MARCA DENUMIRE             T DATA_LANS                                     
+---------- -------------------- - ---------                                     
+         1 FOCUS                S 08-MAR-91                                     
+
+SQL> INSERT INTO MARCI
+  2  VALUES(2, FIESTA', 'S', TO_DATE('08-03-1991', 'DD-MM-YYYY'));
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> VALUES(2, 'FIESTA', 'S', TO_DATE('08-03-1991', 'DD-MM-YYYY'));
+SP2-0734: unknown command beginning "VALUES(2, ..." - rest of line ignored.
+SQL> INSERT INTO MARCIVALUES(2, 'FOCUS', 'S', TO_DATE('08-03-2001','DD-MM-YYYY'));
+INSERT INTO MARCIVALUES(2, 'FOCUS', 'S', TO_DATE('08-03-2001','DD-MM-YYYY'))
+                        *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword 
+
+
+SQL> INSERT INTO MARCI VALUES(2, 'FOCUS', 'S', TO_DATE('08-03-2001','DD-MM-YYYY'));
+
+1 row created.
+
+SQL> VALUES(2, 'FIESTA', 'S', TO_DATE('08-03-1991', 'DD-MM-YYYY'));
+SP2-0734: unknown command beginning "VALUES(2, ..." - rest of line ignored.
+SQL> INSERT INTO MARCI
+  2  VALUES(2, FIESTA', 'S', TO_DATE('08-03-1991', 'DD-MM-YYYY'));
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> 
+SQL> 
+SQL> INSERT INTO MARCI
+  2  VALUES(2, 'FIESTA', 'S', TO_DATE('08-03-1991', 'DD-MM-YYYY'));
+INSERT INTO MARCI
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SYS_C007471) violated 
+
+
+SQL> INSERT INTO MARCI
+  2  VALUES(3, 'FIESTA', 'S', TO_DATE('08-03-1991', 'DD-MM-YYYY'));
+
+1 row created.
+
+SQL> select * from marci
+  2  ;
+
+ COD_MARCA DENUMIRE             T DATA_LANS                                     
+---------- -------------------- - ---------                                     
+         1 FOCUS                S 08-MAR-91                                     
+         2 FOCUS                S 08-MAR-01                                     
+         3 FIESTA               S 08-MAR-91                                     
+
+SQL> desc productie
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COD_MASINA                                NOT NULL NUMBER(8)
+ SERIE_SASIU                                        VARCHAR2(20)
+ COD_MARCA                                          NUMBER(3)
+ DATA_PRODUCTIE                                     DATE
+
+SQL> INSERT INTO PRODUCTIE(COD_MASINA, SERIE_SASIU, COD_MARCA, DATA_PRODUCTIE)
+  2  VALUES(1, 'FOCUS', 2, TO_DATE('08-03-1991', 'DD-MM-YYYY'));
+
+1 row created.
+
+SQL> select * from productie
+  2  ;
+
+COD_MASINA SERIE_SASIU           COD_MARCA DATA_PROD                            
+---------- -------------------- ---------- ---------                            
+         1 FOCUS                         2 08-MAR-91                            
+
+SQL> spool off
